@@ -1,4 +1,4 @@
-# CASI2018
+# CASI 2018
 
-Repository for my work for [CASI2018](casi.ie)
+Repository for my work for [CASI 2018](casi.ie)
 
