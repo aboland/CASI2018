@@ -1,0 +1,128 @@
+---
+title: "**An R Case Study**: From Research to Production"
+output: 
+  postr::flex_dashboard_poster:
+    render_print: false
+    theme: "spacelab"
+---
+
+<head>
+<style>
+<!-- html, body { -->
+<!--     height: 100%; -->
+<!-- } -->
+
+img.my_image {
+    height: 75%;
+    width: 75%;
+    border:1px solid #021a40;
+}
+</style>
+</head>
+
+## Header row {data-height=15}
+
+###
+
+<table style="width:100%">
+<tr>
+  <td rowspan="2" width="33.3%">
+  <img src="images/clavislogo_full.png" style="width:320px"></img>
+  </td>
+  
+  <td width="33.3%">
+  <center><h3>
+  [**Aidan Boland**](http://aboland.ie)
+  </h3></center>
+  </td>
+  
+  <td rowspan="2" width="33.3%">
+  <img src="images/ascential.jpeg" style="width:224px", align="right"></img>
+  </td>
+</tr>
+<tr><td><center>
+  [**aboland.ie/casi18**](http://aboland.ie)
+  </center></td>
+</tr>
+</table> 
+
+<hr>
+
+**Abstract** This paragraph will be rendered inside a wide box right below the
+poster title and authors information.
+The `render_print` format option is set to `TRUE` by default in this poster
+sample, and will result in `postr::render` being called when knitting the
+document (see `help("flex_dashboard_poster", package = postr)`).
+To disable this (recommended in the initial stages of poster development)
+set the `render_print` option to `FALSE`.
+
+
+
+
+## Body row {data-height=75}
+
+### **Buisness Problem**
+
+#### Classification of Products
+
+Explain what the problem is.
+
+Throw in a few pics
+
+```{r}
+# hist(volcano)
+```
+
+
+### **Shiny Application**
+
+Content for the second column.
+
+Pictures and description of auto classification.
+
+
+
+### **plumber API**
+
+The [plumber](https://www.rplumber.io/) package makes it very easy to convert R code to a web API. This allows R functions to be called in a very versatile maner. API's can be called from almost any computer language.  
+
+Using this method, R code can be placed into a production environment.  
+
+
+
+
+1. The data is imported and stored in a temporary database.
+<center>
+<figure>
+<img class="my_image" src="images/Rflow_1.png" width="300" height="300">
+<!-- <figcaption>Data is imported using Java code</figcaption> -->
+</figure>
+</center>
+<br>
+1. The API is called, and pointed to the temporary database.
+<center>
+<figure>
+<img class="my_image" src="images/Rflow_2.png" width="300" height="300">
+<!-- <figcaption>API called from Java</figcaption> -->
+</figure>
+</center>
+<br>
+1. The R code automatically classifys the data and writes the data to the main database.
+<center>
+<figure>
+<img class="my_image" src="images/Rflow_3.png" width="300" height="300">
+<!-- <figcaption>R code runs auto classification</figcaption> -->
+</figure>
+</center>
+
+## Footer row {data-height=10} 
+
+### {data-width=50}
+
+
+### {data-width=50 .small}
+
+Chang W., Cheng J., Allaire JJ., Xie Y. and McPherson J. (2017). *Shiny: Web Application Framework for R.* [https://shiny.rstudio.com/](https://shiny.rstudio.com/)  
+
+Trestle Technology, LLC (2017). *Plumber: An API Generator for R.* [https://www.rplumber.io/](https://www.rplumber.io/)
+
