@@ -167,6 +167,14 @@ Calling the web address of the server with the API name will run the R function.
 
 #### Links
 
+**Sample Shiny App**  
+[casi18shiny.aboland.ie](http://casi18shiny.aboland.ie/)  
+<br>
+**Sample API Calls**  
+<!-- [casi18plumber.aboland.ie/rnorm?50](http://casi18plumber.aboland.ie/rnorm?50)   -->
+[casi18plumber.aboland.ie/rnorm?n=5](http://casi18plumber.aboland.ie/rnorm?n=5)  
+[casi18plumber.aboland.ie/rnorm_plot?n=50](http://casi18plumber.aboland.ie/rnorm_plot?n=50)
+
 ### {data-width=50 .small}
 
 #### References 
