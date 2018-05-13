@@ -13,7 +13,7 @@ function(){
 function(n){
   hist(rnorm(n), 
        main = "", 
-       xlab = paste0("Random sample of ", n, " observations from standand normal"))
+       xlab = paste0("Random sample of ", n, " observations from standard normal"))
 }
 
 #* Return sample of normal variables
