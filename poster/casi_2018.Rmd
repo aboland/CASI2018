@@ -165,7 +165,7 @@ Calling the web address of the server with the API name will run the R function.
 
 ### {data-width=50}
 
-#### Links
+<!-- #### Links -->
 
 **Sample Shiny App**  
 [casi18shiny.aboland.ie](http://casi18shiny.aboland.ie/)  

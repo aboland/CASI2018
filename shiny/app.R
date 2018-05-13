@@ -1,6 +1,8 @@
 #
-# This is a Shiny web application. You can run the application by clicking
-# the 'Run App' button above.
+#      CASI 2018 Sample Shiny App
+# 
+# Sample application to display some simple capabilities of
+# the shiny R package.
 #
 # Find out more about building applications with Shiny here:
 #
@@ -10,56 +12,67 @@
 library(shiny)
 library(ggplot2)
 
-# Define UI for application that draws a histogram
+# Define UI 
 ui <- fluidPage(
+  # Create a navbar page
   navbarPage("CASI 2018",
+             # The first tab which displays a simple histogram
              tabPanel("1 dimension",
                       
-                      # Sidebar with a slider input for number of bins 
+                      # Sidebar with various inputs
                       sidebarLayout(
                         sidebarPanel(
+                          # Slider for number of samples
                           sliderInput("n_data_1dim",
                                       "Number of samples:",
                                       min = 1,
                                       max = 1000,
                                       value = 50),
+                          # Slder for number of bins in the histogram
                           sliderInput("n_bins_1dim",
                                       "Number of bins:",
                                       min = 1,
                                       max = 100,
                                       value = 30),
+                          # Select box for the type of distribution to sample from
                           selectInput("dist_1dim", "Distribution",
                                       choices = list("Uniform" = "unif",
                                                      "Normal" = "norm",
                                                      "Exponential" = "exp")),
+                          # Reactive UI element which changes depending on the distribution
                           uiOutput("parameters_1dim")
                         ),
                         
-                        # Show a plot of the generated distribution
                         mainPanel(
+                          # Show a histogram of the samples from the selected distribution
                           plotOutput("plot_1dim")
                         )
                       )
-             ),  # end of 1dim panel
+             ),  # end of first tab
+             
+             # The second tab which displays a scatterplot of 2 samples
              tabPanel("2 dimensions",
                       sidebarLayout(
                         sidebarPanel(
-                      selectInput("dist_2dim", "Distribution",
-                                  choices = list("Uniform" = "unif",
-                                                 "Normal" = "norm",
-                                                 "Exponential" = "exp")),
-                      sliderInput("n_data_2dim",
-                                  "Number of samples:",
-                                  min = 1,
-                                  max = 1000,
-                                  value = 50),
-                      uiOutput("parameters_2dim")
+                          # Slider for number of samples
+                          sliderInput("n_data_2dim",
+                                      "Number of samples:",
+                                      min = 1,
+                                      max = 1000,
+                                      value = 50),
+                          # Select box for the type of distribution to sample from
+                          selectInput("dist_2dim", "Distribution",
+                                      choices = list("Uniform" = "unif",
+                                                     "Normal" = "norm",
+                                                     "Exponential" = "exp")),
+                          # Reactive UI element which changes depending on the distribution
+                          uiOutput("parameters_2dim")
                         ),
-                      mainPanel(
-                      plotOutput("plot_2dim")
+                        mainPanel(
+                          plotOutput("plot_2dim")
+                        )
                       )
-                      )
-             )
+             )  # end of second tab
   )  # end of navbarpage
 )
 
@@ -76,9 +89,9 @@ server <- function(input, output) {
     )
   })
   
-  
+  # reactive element to create the histogram
   output$plot_1dim <- renderPlot({
-    # generate bins based on input$bins from ui.R
+    # generate random samples form selected distribution
     x <- switch (input$dist_1dim,
                  unif = runif(input$n_data_1dim, 
                               min = ifelse(is.null(input$unif_min_1dim), 0, input$unif_min_1dim), 
@@ -89,22 +102,19 @@ server <- function(input, output) {
                  exp =  rexp(input$n_data_1dim, 
                              rate = ifelse(is.null(input$exp_rate_1dim), 1, input$exp_rate_1dim))
     )
-    
-    sample_dim1 <- data.frame(data = x)
-    
-    dim1_plot_title <- reactive(
-      switch (input$dist_1dim,
-              unif = paste0(input$n_data_1dim, " samples from uniform distribution"),
-              norm = paste0(input$n_data_1dim, 
-                            " samples from normal distribution with mean=", input$norm_mean_1dim, 
-                            " and standard deviation=", input$norm_sd_1dim),
-              exp =  paste0(input$n_data_1dim, " samples from exponential distribution with rate=",input$exp_rate_1dim)
-      )
+    # title for the plot
+    dim1_plot_title <- switch (input$dist_1dim,
+                               unif = paste0(input$n_data_1dim, " samples from uniform distribution"),
+                               norm = paste0(input$n_data_1dim, 
+                                             " samples from normal distribution with mean=", input$norm_mean_1dim, 
+                                             " and standard deviation=", input$norm_sd_1dim),
+                               exp =  paste0(input$n_data_1dim, " samples from exponential distribution with rate=",input$exp_rate_1dim)
     )
     
-    ggplot(data = sample_dim1, aes(data)) + geom_histogram(bins = input$n_bins_1dim) + 
+    # create the plot
+    ggplot(data = data.frame(data = x), aes(data)) + geom_histogram(bins = input$n_bins_1dim) + 
       xlab("") + ylab("") + 
-      ggtitle(dim1_plot_title())
+      ggtitle(dim1_plot_title)
   })
   
   
@@ -119,7 +129,7 @@ server <- function(input, output) {
   })
   
   output$plot_2dim <- renderPlot({
-    x <- switch (input$dist_2dim,
+    x_sample <- switch (input$dist_2dim,
                  unif = runif(input$n_data_2dim, 
                               min = ifelse(is.null(input$unif_min_2dim), 0, input$unif_min_2dim), 
                               max = ifelse(is.null(input$unif_max_2dim), 1, input$unif_max_2dim)),
@@ -129,7 +139,7 @@ server <- function(input, output) {
                  exp =  rexp(input$n_data_2dim, 
                              rate = ifelse(is.null(input$exp_rate_2dim), 1, input$exp_rate_2dim))
     )
-    y <- switch (input$dist_2dim,
+    y_sample <- switch (input$dist_2dim,
                  unif = runif(input$n_data_2dim, 
                               min = ifelse(is.null(input$unif_min_2dim), 0, input$unif_min_2dim), 
                               max = ifelse(is.null(input$unif_max_2dim), 1, input$unif_max_2dim)),
@@ -139,22 +149,19 @@ server <- function(input, output) {
                  exp =  rexp(input$n_data_2dim, 
                              rate = ifelse(is.null(input$exp_rate_2dim), 1, input$exp_rate_2dim))
     )
-    sample_dim2 <- data.frame(xdata = x, ydata = y)
-    
-    dim2_plot_title <- reactive(
-      switch (input$dist_2dim,
-              unif = paste0(input$n_data_2dim, " samples from uniform distribution"),
-              norm = paste0(input$n_data_2dim, 
-                            " samples from normal distribution with mean=", input$norm_mean_2dim, 
-                            " and standard deviation=", input$norm_sd_2dim),
-              exp =  paste0(input$n_data_2dim, " samples from exponential distribution with rate=",input$exp_rate_2dim)
-      )
+    # sample_dim2 <- data.frame(xdata = x, ydata = y)
+    # title for the plot
+    dim2_plot_title <- switch (input$dist_2dim,
+                               unif = paste0(input$n_data_2dim, " samples from uniform distribution"),
+                               norm = paste0(input$n_data_2dim, 
+                                             " samples from normal distribution with mean=", input$norm_mean_2dim, 
+                                             " and standard deviation=", input$norm_sd_2dim),
+                               exp =  paste0(input$n_data_2dim, " samples from exponential distribution with rate=",input$exp_rate_2dim)
     )
     
-    ggplot(data = sample_dim2, aes(x = xdata, y = ydata)) + geom_point() + 
+    ggplot(data = data.frame(xdata = x_sample, ydata = y_sample), aes(x = xdata, y = ydata)) + geom_point() + 
       xlab("") + ylab("") + 
-      ggtitle(dim2_plot_title())
-    # plot(x, y)
+      ggtitle(dim2_plot_title)
   })
   
 }
