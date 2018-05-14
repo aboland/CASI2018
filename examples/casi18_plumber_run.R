@@ -1,3 +1,3 @@
 library(plumber)
-r <- plumb("shiny/casi18_plumber.R")
+r <- plumb("examples/casi18_plumber.R")
 r$run(host='0.0.0.0', port=8000)

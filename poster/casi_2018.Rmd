@@ -21,14 +21,16 @@ img.my_image {
 </style>
 </head>
 
-## Header row {data-height=15}
+## Header row {data-height=13}
 
 ###
 
 <table style="width:100%">
 <tr>
   <td rowspan="2" width="33.3%">
-  <img src="images/clavislogo_full.png" style="width:320px"></img>
+  <a href="https://www.clavisinsight.com/">
+  <img src="images/clavislogo_full.png" style="width:320px", align="left"></img>
+  </a>
   </td>
   
   <td width="33.3%">
@@ -38,11 +40,13 @@ img.my_image {
   </td>
   
   <td rowspan="2" width="33.3%">
+  <a href="https://www.ascential.com/">
   <img src="images/ascential.jpeg" style="width:224px", align="right"></img>
+  </a>
   </td>
 </tr>
 <tr><td><center>
-  <!-- [**aboland.ie/casi18**](http://aboland.ie) -->
+  [**casi.aboland.ie**](http://casi.aboland.ie/)
   </center></td>
 </tr>
 </table> 
@@ -56,7 +60,7 @@ R's ecosystem makes it very simple to provide access to code without the end use
 
 
 
-## Body row {data-height=82}
+## Body row {data-height=85}
 
 ### **Case Study Overview**
 
@@ -72,28 +76,28 @@ Clavis Insight are a leading firm in e-commerce analytics. We process large amou
 
 #### Classification of Products
 
-Clients want to see performance of their products across various categories and groupings. Each client has their own version and breakdown of categories. In order to present the data in this format, we must tag each product with its correct category. A large number of new products are surfaced each day and so it is not feasible to categorise the products manually.  
+Clients want to see performance of their products across various categories and groupings. Each client has their own version and breakdown of categories. In order to present the data in this format, we must tag each product with its correct category. A large number of new products are surfaced each day and so it is not feasible to categorise each product manually.  
 
 <center>
 <figure>
 <img src="images/insights_example_hersheys.png" width="95%" height="95%">
 </figure>
 </center>
+<br>
 
-
-It is possible to use supervised classification to categorise the new products. The product descriptions from the products already in the database can be used to learn about the categories. New products can then be tagged with a category automatically.
+It is possible to use supervised classification to categorise the new products. The product descriptions of the products which are already in the database can be used to learn about the categories. New products can then be tagged with a category automatically.
 
 #### Bringing Auto-Classification Into Use
 
 The code to perform supervised classification was written in R. This is useful for someone who is comfortable with the language but not useful otherwise. To bring auto-classification into general use took two steps.  
-First a [shiny](https://shiny.rstudio.com/) application was built. This allowed users to load in files and perform classification using a GUI. No prior knowledge of classification techniques or coding experience was necessary for the user.  
-Second the code was built into the production environment. This meant that auto-classification would run automatically as new data was loaded into the system. Since the production environment was written in Java, a suitable method was needed in order to run the R code in production. A web API for the R code was created using the [plumber](https://www.rplumber.io/) library.
+First, a [shiny](https://shiny.rstudio.com/) application was built. This allowed users to load in files and perform classification using a GUI. No prior knowledge of classification techniques or coding experience was necessary for the user.  
+Second, the code was built into the production environment. This meant that auto-classification would run automatically as new data was loaded into the system. Since the production environment was written in Java, a suitable method was needed in order to run the R code in production. A web API for the R code was created using the [plumber](https://www.rplumber.io/) library.
 
 ### **Shiny Web Application**
 
 [Shiny](https://shiny.rstudio.com/) is an R package that makes it easy to build interactive web applications straight from R.  
 
-Users of the web apps do not need any experience in coding. This makes shiny a very useful method for allowing users to run algorithms with point and click.
+Users of the web apps do not need any experience in coding. This makes shiny a very useful method for allowing users to run algorithms with a point and click interface.
 
 #### Auto-Classification Using Shiny
 
@@ -104,9 +108,12 @@ Users of the web apps do not need any experience in coding. This makes shiny a v
 </center>
 <br>
 
-The code for performing auto-classification was built into a simple shiny application. Anybody could upload a training file and a file with new products. The new products were then automatically classified in the application. This was all achieved with a graphical interface, the user never saw any of the underlying code and no knowledge of classification methods was needed.  
+The code for performing auto-classification was built into a simple shiny application. Anybody could upload a training file and a file with new products. The new products were then automatically classified in the application. This was all achieved with a graphical interface, the user never saw any of the underlying code.
+<!-- and no knowledge of classification methods was needed.   -->
 
+#### Advanced Users
 
+While no knowledge of classification methods was needed in order to use the application. More advanced users could tailor the algorithm with various parameters which were made available within the application. Cross fold validation could also be performed on the training data.
 
 #### Shiny Workflow
 
@@ -129,9 +136,9 @@ This was a very useful application. It removed a large amount of the manual work
 
 The [plumber](https://www.rplumber.io/) package makes it very easy to convert R functions to a web application programming interface (API). This allows R functions to be called in a very versatile manner. API's can be called from almost any computer language.  
 
-The R code can be built as a [Docker](https://www.docker.com/) container. This is essentially a version of the code which can be easily run on an external server. The address of the server will be the endpoint for the web API.  
+<!-- The R code can be built as a [Docker](https://www.docker.com/) container. This is essentially a version of the code which can be easily run on an external server. The address of the server will be the endpoint for the web API.   -->
 
-Calling the web address of the server with the API name will run the R function. Arguments and data can be passed as part of the call to the API. Response messages and data can be passed back from the API.  
+Calling the address of the server which is hosting the API and the using the API name will run the R function. Arguments and data can be passed as part of the call to the API. Response messages and data can be passed back from the API.  
 
 <!-- Using this method, R code can be placed into a production environment.   -->
 
@@ -161,9 +168,13 @@ Calling the web address of the server with the API name will run the R function.
 </figure>
 </center>
 
-## Footer row {data-height=3} 
+<br>
 
-### {data-width=50}
+This new workflow allowed products to be added to our database without any hands on intervention. This in turn increased the number of new products which could be processed each week.
+
+## Footer row {data-height=2} 
+
+### {data-width=30}
 
 <!-- #### Links -->
 
@@ -177,13 +188,16 @@ Calling the web address of the server with the API name will run the R function.
 
 ### {data-width=50 .small}
 
-#### References 
-
+<!-- #### References  -->
+**References**  
 Chang W., Cheng J., Allaire JJ., Xie Y. and McPherson J. (2017). *Shiny: Web Application Framework for R.* [https://shiny.rstudio.com/](https://shiny.rstudio.com/)  
 
 Trestle Technology, LLC (2017). *Plumber: An API Generator for R.* [https://www.rplumber.io/](https://www.rplumber.io/)
 
-#### Source Code 
-
-[github.com/aboland/CASI_2018](https://github.com/aboland/CASI_2018)
-
+<!-- #### Source Code  -->
+**Source Code**  
+<!-- [github.com/aboland/CASI_2018](https://github.com/aboland/CASI_2018) -->
+<a href="https://github.com/aboland/CASI_2018">
+      <img src="images/GitHub-Mark-120px-plus.png" height="18" width="18" border="3" hspace="4">
+      github.com/aboland/CASI_2018
+</a>
