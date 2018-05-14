@@ -24,6 +24,6 @@ Download the script and then run the following 3 lines in R from within the same
 
 This will start the API and it will then be available to call from within a local web browser using.  
 
-http://localhost:8000/rnorm_plot?n=40  
+http://localhost:8000/rnorm?n=40  
 or  
 http://localhost:8000/rnorm_plot?n=40

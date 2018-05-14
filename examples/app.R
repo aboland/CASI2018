@@ -79,6 +79,9 @@ ui <- fluidPage(
 # Define server logic required to draw a histogram
 server <- function(input, output) {
   
+  # --------- First tab functions
+  
+  # reactive UI, changes depending on which distribution is chosen
   output$parameters_1dim <- renderUI({
     switch (input$dist_1dim,
             unif = tagList(numericInput("unif_min_1dim", "Min", 0),
@@ -118,6 +121,9 @@ server <- function(input, output) {
   })
   
   
+  # --------- Second tab functions
+  
+  # reactive UI, changes depending on which distribution is chosen
   output$parameters_2dim <- renderUI({
     switch (input$dist_2dim,
             unif = tagList(numericInput("unif_min_2dim", "Min", 0),
@@ -128,28 +134,31 @@ server <- function(input, output) {
     )
   })
   
+  # reactive element to create the scatterplot
   output$plot_2dim <- renderPlot({
+    # first sample
     x_sample <- switch (input$dist_2dim,
-                 unif = runif(input$n_data_2dim, 
-                              min = ifelse(is.null(input$unif_min_2dim), 0, input$unif_min_2dim), 
-                              max = ifelse(is.null(input$unif_max_2dim), 1, input$unif_max_2dim)),
-                 norm = rnorm(input$n_data_2dim, 
-                              mean = ifelse(is.null(input$norm_mean_2dim), 0, input$norm_mean_2dim), 
-                              sd = ifelse(is.null(input$norm_sd_2dim), 1, input$norm_sd_2dim)),
-                 exp =  rexp(input$n_data_2dim, 
-                             rate = ifelse(is.null(input$exp_rate_2dim), 1, input$exp_rate_2dim))
+                        unif = runif(input$n_data_2dim, 
+                                     min = ifelse(is.null(input$unif_min_2dim), 0, input$unif_min_2dim), 
+                                     max = ifelse(is.null(input$unif_max_2dim), 1, input$unif_max_2dim)),
+                        norm = rnorm(input$n_data_2dim, 
+                                     mean = ifelse(is.null(input$norm_mean_2dim), 0, input$norm_mean_2dim), 
+                                     sd = ifelse(is.null(input$norm_sd_2dim), 1, input$norm_sd_2dim)),
+                        exp =  rexp(input$n_data_2dim, 
+                                    rate = ifelse(is.null(input$exp_rate_2dim), 1, input$exp_rate_2dim))
     )
+    # second sample
     y_sample <- switch (input$dist_2dim,
-                 unif = runif(input$n_data_2dim, 
-                              min = ifelse(is.null(input$unif_min_2dim), 0, input$unif_min_2dim), 
-                              max = ifelse(is.null(input$unif_max_2dim), 1, input$unif_max_2dim)),
-                 norm = rnorm(input$n_data_2dim, 
-                              mean = ifelse(is.null(input$norm_mean_2dim), 0, input$norm_mean_2dim), 
-                              sd = ifelse(is.null(input$norm_sd_2dim), 1, input$norm_sd_2dim)),
-                 exp =  rexp(input$n_data_2dim, 
-                             rate = ifelse(is.null(input$exp_rate_2dim), 1, input$exp_rate_2dim))
+                        unif = runif(input$n_data_2dim, 
+                                     min = ifelse(is.null(input$unif_min_2dim), 0, input$unif_min_2dim), 
+                                     max = ifelse(is.null(input$unif_max_2dim), 1, input$unif_max_2dim)),
+                        norm = rnorm(input$n_data_2dim, 
+                                     mean = ifelse(is.null(input$norm_mean_2dim), 0, input$norm_mean_2dim), 
+                                     sd = ifelse(is.null(input$norm_sd_2dim), 1, input$norm_sd_2dim)),
+                        exp =  rexp(input$n_data_2dim, 
+                                    rate = ifelse(is.null(input$exp_rate_2dim), 1, input$exp_rate_2dim))
     )
-    # sample_dim2 <- data.frame(xdata = x, ydata = y)
+    
     # title for the plot
     dim2_plot_title <- switch (input$dist_2dim,
                                unif = paste0(input$n_data_2dim, " samples from uniform distribution"),
@@ -159,6 +168,7 @@ server <- function(input, output) {
                                exp =  paste0(input$n_data_2dim, " samples from exponential distribution with rate=",input$exp_rate_2dim)
     )
     
+    # Scatter plot using the two samples
     ggplot(data = data.frame(xdata = x_sample, ydata = y_sample), aes(x = xdata, y = ydata)) + geom_point() + 
       xlab("") + ylab("") + 
       ggtitle(dim2_plot_title)
