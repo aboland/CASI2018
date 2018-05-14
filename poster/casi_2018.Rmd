@@ -85,11 +85,11 @@ Clients want to see performance of their products across various categories and 
 </center>
 <br>
 
-It is possible to use supervised classification to categorise the new products. The product descriptions of the products which are already in the database can be used to learn about the categories. New products can then be tagged with a category automatically.
+It is possible to use supervised classification to categorise the new products. The product descriptions of the products which are already in the database can be used to learn about the categories. New products can then be automatically tagged with a category.
 
 #### Bringing Auto-Classification Into Use
 
-The code to perform supervised classification was written in R. This is useful for someone who is comfortable with the language but not useful otherwise. To bring auto-classification into general use took two steps.  
+The code to perform supervised classification was written in R. This is useful for someone who is comfortable with the language but not useful otherwise. Bringing auto-classification into general use took two steps.  
 First, a [shiny](https://shiny.rstudio.com/) application was built. This allowed users to load in files and perform classification using a GUI. No prior knowledge of classification techniques or coding experience was necessary for the user.  
 Second, the code was built into the production environment. This meant that auto-classification would run automatically as new data was loaded into the system. Since the production environment was written in Java, a suitable method was needed in order to run the R code in production. A web API for the R code was created using the [plumber](https://www.rplumber.io/) library.
 
@@ -108,17 +108,17 @@ Users of the web apps do not need any experience in coding. This makes shiny a v
 </center>
 <br>
 
-The code for performing auto-classification was built into a simple shiny application. Anybody could upload a training file and a file with new products. The new products were then automatically classified in the application. This was all achieved with a graphical interface, the user never saw any of the underlying code.
+The code for performing auto-classification was built into a simple shiny application. Anybody could upload a training file and a file with new products. The new products were then automatically classified in the application. This was all achieved with a graphical interface; the user never saw any of the underlying code.
 <!-- and no knowledge of classification methods was needed.   -->
 
 #### Advanced Users
 
-While no knowledge of classification methods was needed in order to use the application. More advanced users could tailor the algorithm with various parameters which were made available within the application. Cross fold validation could also be performed on the training data.
+While no knowledge of classification methods was needed in order to use the application, more advanced users could tailor the algorithm with various parameters which were made available within the application. Cross fold validation could also be performed on the training data.
 
 #### Shiny Workflow
 
-1. Load in training data csv file.
-1. Load in new data csv file.
+1. Load in the training data csv file.
+1. Load in the new data csv file.
 1. Classify the new data within the shiny app.
 1. Download classified data.
 1. Upload classified data to database. 
@@ -130,11 +130,11 @@ While no knowledge of classification methods was needed in order to use the appl
 </center>
 <br>
 
-This was a very useful application. It removed a large amount of the manual work involved with classifying products. However, it didn't fully remove manual intervention, a person had to upload files for every single customer. The next step was to fully automate the classification process.
+This was a very useful application. It removed a large amount of the manual work involved with classifying products. However, it didn't fully remove manual intervention, as files had to be uploaded for every single customer. The next step was to fully automate the classification process.
 
 ### **plumber API**
 
-The [plumber](https://www.rplumber.io/) package makes it very easy to convert R functions to a web application programming interface (API). This allows R functions to be called in a very versatile manner. API's can be called from almost any computer language.  
+The [plumber](https://www.rplumber.io/) package makes it very easy to convert R functions to a web application programming interface (API). This allows R functions to be called in a very versatile manner, API's can be called from almost any computer language.  
 
 <!-- The R code can be built as a [Docker](https://www.docker.com/) container. This is essentially a version of the code which can be easily run on an external server. The address of the server will be the endpoint for the web API.   -->
 
